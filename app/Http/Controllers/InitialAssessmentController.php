@@ -9,10 +9,6 @@ class InitialAssessmentController extends Controller
 {
     public function create()
     {
-        // Jika sudah asesmen, kembalikan ke dashboard
-        if (Auth::user()->is_assessed) {
-            return redirect()->route('dashboard');
-        }
         return view('asesmen_awal.create');
     }
 
@@ -29,6 +25,17 @@ class InitialAssessmentController extends Controller
         $user->is_assessed = true;
         $user->save();
 
-        return redirect()->route('dashboard')->with('success', 'Asesmen awal berhasil diselesaikan!');
+        // Otomatis masukkan mahasiswa ke semua lomba sebagai 'pending' agar Koor bisa memilah
+        $lombas = \App\Models\Lomba::all();
+        foreach ($lombas as $lomba) {
+            \App\Models\AsesmenStatistik::firstOrCreate([
+                'user_id' => $user->id,
+                'lomba_id' => $lomba->id,
+            ], [
+                'status_keputusan' => 'pending'
+            ]);
+        }
+
+        return redirect()->route('lomba.index')->with('success', 'Nilai asesmen berhasil diperbarui!');
     }
 }

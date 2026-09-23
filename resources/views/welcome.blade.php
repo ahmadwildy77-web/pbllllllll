@@ -4,68 +4,195 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SIREMA - Sistem Rekomendasi Mahasiswa</title>
-    <!-- Tailwind CSS CDN -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#2c59d6', // Assuming the primary blue color
+                            light: '#f1f5fb', // Very light blue background
+                            card: '#e8effd',  // Light blue card top half
+                            text: '#1a1a2e',  // Dark text
+                            gray: '#6b7280'   // Subtitle text
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased font-sans">
+<body class="font-sans antialiased bg-brand-light text-brand-text">
     
     <!-- Navbar -->
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-600">SIREMA</h1>
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-[1400px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
+            <!-- Logo area -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-brand-blue rounded-md flex items-center justify-center text-white font-bold text-xl">S</div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-xl text-brand-blue leading-none mb-1">SIREMA</span>
+                    <span class="text-[10px] text-gray-500 font-medium leading-none tracking-wide">Sistem Rekomendasi Mahasiswa</span>
                 </div>
-                <div>
-                    @if (Route::has('login'))
-                        @auth
-                            <a href="{{ url('/dashboard') }}" class="text-gray-700 hover:text-blue-600 font-medium">Dashboard</a>
-                        @else
-                            <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-medium mr-4">Log in</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">Register</a>
-                            @endif
-                        @endauth
-                    @endif
-                </div>
+            </div>
+
+            <!-- Action -->
+            <div>
+                <a href="{{ route('login') }}" class="px-6 py-2.5 border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+                    Masuk
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-blue-600 py-20 text-center text-white">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Selamat Datang di SIREMA</h1>
-        <p class="text-lg md:text-xl max-w-2xl mx-auto">Sistem Pendaftaran dan Asesmen Lomba. Temukan kompetisi terbaik untuk Anda, daftar, dan raih prestasi!</p>
-        @guest
-            <a href="{{ route('register') }}" class="mt-8 inline-block bg-white text-blue-600 font-bold px-6 py-3 rounded-full shadow hover:bg-gray-100">Daftar Sekarang</a>
-        @endguest
-    </div>
-
-    <!-- Bulletin Lomba -->
-    <div class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-10">Bulletin Lomba yang Sedang Berjalan</h2>
+    <main class="max-w-[1400px] mx-auto px-6 sm:px-8 pt-16 pb-24">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($lombas as $lomba)
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $lomba->nama_lomba }}</h3>
-                    <p class="text-gray-600 mb-4">{{ Str::limit($lomba->deskripsi, 120) }}</p>
-                    <a href="{{ route('login') }}" class="text-blue-600 font-semibold hover:underline">Login untuk mendaftar &rarr;</a>
-                </div>
-            </div>
-            @endforeach
+        <div class="text-center max-w-4xl mx-auto mb-20">
+            <span class="inline-block px-4 py-1.5 bg-blue-50 text-brand-blue text-xs font-bold rounded-full mb-8">
+                Sistem Rekomendasi Mahasiswa
+            </span>
             
-            @if(count($lombas) == 0)
-                <p class="text-center text-gray-500 col-span-3">Belum ada lomba yang tersedia saat ini.</p>
-            @endif
+            <h1 class="text-[2.75rem] leading-[1.2] font-extrabold text-brand-text mb-6">
+                <span class="text-brand-blue">SIREMA</span> - <span class="text-brand-blue">Si</span>stem <span class="text-brand-blue">Re</span>komendasi <span class="text-brand-blue">Ma</span>hasiswa pada Bidang Lomba Akademik dan Non-Akademik
+            </h1>
+            
+            <p class="text-lg text-brand-gray max-w-2xl mx-auto font-medium">
+                Temukan peluang kompetisi terbaik berdasarkan minat, kemampuan, dan bidang akademik maupun non-akademik.
+            </p>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 text-center mt-12">
-        <p>&copy; {{ date('Y') }} SIREMA. Hak Cipta Dilindungi.</p>
-    </footer>
+        <!-- Prestasi Terbaru -->
+        <div class="bg-[#f8fafc] rounded-[2rem] p-10 mb-20">
+            <h2 class="text-2xl font-bold mb-2">Prestasi Terbaru</h2>
+            <p class="text-brand-gray text-sm mb-8">Visualisasi kompetisi mahasiswa dengan tampilan modern dan interaktif.</p>
+            
+            <!-- Inner Card -->
+            <div class="bg-[#eaf0fc] rounded-[1.5rem] p-8 min-h-[200px]">
+                <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full mb-4">
+                    Lomba Akademik
+                </span>
+                <h3 class="text-xl font-bold text-brand-text mb-2">Kompetisi Riset Mahasiswa</h3>
+                <p class="text-brand-gray text-sm">Pameran inovasi, presentasi, dan kolaborasi riset antar perguruan tinggi.</p>
+            </div>
+        </div>
+
+        <!-- Lomba Terkini -->
+        <div>
+            <h2 class="text-2xl font-bold mb-2">Lomba Terkini</h2>
+            <p class="text-brand-gray text-sm mb-8">Eksplorasi peluang kompetisi akademik dan non-akademik yang sesuai dengan minat dan kemampuan mahasiswa.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Kompetisi Riset Mahasiswa</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Pameran inovasi, presentasi, dan kolaborasi riset antar perguruan tinggi.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Debat & Diplomasi</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Kompetisi wacana, negosiasi, dan strategi diplomasi mahasiswa.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Hackathon Teknologi</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Kompetisi pengembangan solusi digital dan inovasi teknologi.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Kompetisi Seni & Kreatif</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Pameran karya, instalasi, dan ekspresi kreatif mahasiswa.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Kompetisi Bisnis & Kewirausahaan</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Kompetisi ide bisnis, pitching, dan strategi entrepreneurship.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Kompetisi Desain & Inovasi</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Kompetisi konsep, prototipe, dan solusi desain berbasis kebutuhan.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Kompetisi Pendidikan & Sosial</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Kompetisi program edukasi, literasi, dan dampak sosial mahasiswa.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div class="bg-brand-card p-6 min-h-[160px] flex flex-col justify-start">
+                        <span class="inline-block px-3 py-1 bg-white text-brand-blue text-[10px] font-bold rounded-full w-max mb-4">Lomba</span>
+                        <h3 class="text-lg font-bold text-brand-text leading-snug">Kompetisi Olahraga & Prestasi</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-brand-gray text-xs mb-6 flex-1">Kompetisi cabang olahraga, kebugaran, dan prestasi mahasiswa.</p>
+                        <a href="#" class="block w-full text-center py-2.5 bg-blue-50 text-brand-blue font-semibold text-xs rounded-xl hover:bg-blue-100 transition">Lihat Detail</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
 
 </body>
 </html>

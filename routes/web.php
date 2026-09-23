@@ -10,8 +10,7 @@ use App\Models\Lomba;
 
 // Route Halaman Utama / Landing Page
 Route::get('/', function () {
-    // Jika file welcome.blade.php belum ada, langsung alihkan ke halaman login atau lomba
-    return redirect()->route('login');
+    return view('welcome');
 });
 
 // Route Resource Product
@@ -26,12 +25,21 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('ensure_assessed')->group(function () {
         Route::get('/dashboard', function () {
             $role = auth()->user()->role;
-            if ($role === 'mahasiswa') return redirect()->route('lomba.index');
-            if ($role === 'staf') return redirect()->route('lomba.index')->with('message', 'Dashboard Monitor');
-            if ($role === 'koor_kaprodi') return redirect()->route('lomba.index')->with('message', 'Dashboard Admin');
+            if ($role === 'mahasiswa') {
+                $rekomendasi_divalidasi = \App\Models\AsesmenStatistik::with('lomba')
+                    ->where('user_id', auth()->id())
+                    ->where('status_keputusan', 'divalidasi')
+                    ->get();
+                return view('mahasiswa.dashboard', compact('rekomendasi_divalidasi'));
+            }
+            
+            // Koor and Staf see the admin dashboard
+            return view('admin.dashboard');
         })->name('dashboard');
 
         Route::get('/lomba', [LombaController::class, 'index'])->name('lomba.index');
+        Route::get('/lomba/create', [LombaController::class, 'create'])->name('lomba.create');
+        Route::post('/lomba', [LombaController::class, 'store'])->name('lomba.store');
         Route::get('/lomba/{lomba}', [LombaController::class, 'show'])->name('lomba.show');
 
         Route::post('/lomba/{lomba_id}/asesmen', [AsesmenController::class, 'storeOrUpdate'])
@@ -39,9 +47,18 @@ Route::middleware(['auth'])->group(function () {
             ->name('asesmen.store');
     });
 
-    Route::middleware('role:koor_kaprodi')->group(function () {
+    Route::middleware('role:koordinator,staf')->group(function () {
+        Route::get('/mahasiswa', [\App\Http\Controllers\MahasiswaController::class, 'index'])->name('mahasiswa.index');
+    });
+
+    Route::middleware('role:koordinator')->group(function () {
         Route::patch('/asesmen/{id}/status', [AsesmenController::class, 'updateStatus'])->name('asesmen.update_status');
         Route::delete('/asesmen/{id}', [AsesmenController::class, 'destroy'])->name('asesmen.destroy');
+    });
+
+    Route::middleware('role:kaprodi')->group(function () {
+        Route::get('/validasi', [\App\Http\Controllers\KaprodiController::class, 'index'])->name('kaprodi.validasi');
+        Route::patch('/validasi/{id}', [\App\Http\Controllers\KaprodiController::class, 'validateRekomendasi'])->name('kaprodi.validasi.update');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

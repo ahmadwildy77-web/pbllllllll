@@ -2,23 +2,42 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'nim_nip', 'role', 'status_akun'
+        'name',
+        'email',
+        'password',
+        'nim_nip',
+        'role',
+        'status_akun',
+        'google_id',
+        'angkatan',
+        'semester_aktif',
+        'gpa',
+        'pbl_status',
+        'linkedin',
+        'github',
+        'skills'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function asesmen()
+    public function asesmenResponses()
     {
-        return $this->hasMany(AsesmenStatistik::class);
+        return $this->hasMany(AsesmenResponse::class, 'user_id');
+    }
+
+    public function rekomendasiLomba()
+    {
+        return $this->hasMany(Rekomendasi::class, 'mahasiswa_id');
     }
 }

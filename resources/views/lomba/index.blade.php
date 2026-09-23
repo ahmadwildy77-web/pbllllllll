@@ -1,33 +1,33 @@
 <x-app-layout>
-    <div class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex justify-between items-center mb-8" data-aos="fade-down">
-            <div>
-                <h2 class="text-3xl font-extrabold text-gray-900">Daftar Kompetisi (Lomba)</h2>
-                <p class="mt-2 text-gray-500">Pilih kompetisi yang sesuai dengan minat dan bakat Anda.</p>
-            </div>
+    <x-slot name="header">
+        <div>
+            <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Daftar Lomba</h2>
+            <p class="text-sm text-gray-500">Pilih dan daftarkan diri pada kompetisi yang sesuai dengan keahlian Anda</p>
+        </div>
+    </x-slot>
+
+    <div class="space-y-6">
+        <div>
+            <h3 class="text-xl font-medium text-gray-900 mb-4 px-2">Kompetisi Tersedia</h3>
+            <p class="mt-1 text-gray-500 px-2 mb-6 text-sm">Pilih dan daftarkan diri pada kompetisi yang sesuai dengan keahlian Anda.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @foreach($lombas as $index => $lomba)
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2 flex flex-col" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition duration-300 transform hover:-translate-y-1 flex flex-col h-full">
                     
-                    <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-600 relative">
-                        <!-- Decorative circle -->
-                        <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-white opacity-20 rounded-full"></div>
-                        <div class="absolute -top-6 -left-6 w-32 h-32 bg-white opacity-10 rounded-full"></div>
-                        <div class="absolute bottom-4 left-6">
-                            <span class="px-3 py-1 bg-white/20 text-white rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm border border-white/30">Terbuka</span>
-                        </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#0066cc]/10 text-[#0066cc]">
+                            Lomba Terbuka
+                        </span>
                     </div>
 
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $lomba->nama_lomba }}</h3>
-                        <p class="text-gray-500 text-sm mb-6 flex-grow">{{ Str::limit($lomba->deskripsi, 120) }}</p>
-                        
-                        <a href="{{ route('lomba.show', $lomba->id) }}" class="inline-flex justify-center items-center w-full bg-blue-50 text-blue-600 font-bold px-4 py-3 rounded-xl hover:bg-blue-600 hover:text-white transition duration-300">
-                            Lihat Detail & Daftar
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ $lomba->nama_lomba }}</h4>
+                    <p class="text-gray-500 text-sm mb-6 flex-grow line-clamp-3">{{ $lomba->deskripsi }}</p>
+                    
+                    <div class="mt-auto pt-4 border-t border-gray-50">
+                        <a href="{{ route('lomba.show', $lomba->id) }}" class="inline-block w-full text-center bg-gray-50 text-gray-700 font-medium px-4 py-2.5 rounded-full hover:bg-gray-100 transition duration-300 text-sm">
+                            Lihat Detail
                         </a>
                     </div>
                 </div>
@@ -35,10 +35,12 @@
         </div>
         
         @if(count($lombas) == 0)
-            <div class="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-100" data-aos="fade-up">
-                <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+            <div class="text-center py-20 bg-white/70 backdrop-blur-md rounded-3xl border border-white/40 shadow-sm mt-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4 text-gray-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                </div>
                 <h3 class="text-xl font-medium text-gray-900">Belum ada lomba tersedia</h3>
-                <p class="mt-1 text-gray-500">Silakan kembali lagi nanti.</p>
+                <p class="mt-2 text-gray-500">Silakan periksa kembali nanti untuk melihat daftar kompetisi baru.</p>
             </div>
         @endif
     </div>

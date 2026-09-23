@@ -40,8 +40,8 @@
                             <th class="p-4 font-semibold text-center">Nilai Portofolio</th>
                             <th class="p-4 font-semibold text-center">Rekomendasi AI (%)</th>
                             <th class="p-4 font-semibold text-center">Status</th>
-                            @if($user->role === 'koor_kaprodi')
-                                <th class="p-4 font-semibold text-center">Aksi (Koor/Kaprodi)</th>
+                            @if($user->role === 'koordinator')
+                                <th class="p-4 font-semibold text-center">Aksi (Koor)</th>
                             @endif
                         </tr>
                     </thead>
@@ -63,22 +63,28 @@
                                 @if($a->status_keputusan == 'pending')
                                     <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full font-bold uppercase text-xs">Pending</span>
                                 @elseif($a->status_keputusan == 'terpilih')
-                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full font-bold uppercase text-xs">Terpilih</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-bold uppercase text-xs">Menunggu Validasi</span>
+                                @elseif($a->status_keputusan == 'divalidasi')
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full font-bold uppercase text-xs">Divalidasi</span>
                                 @else
                                     <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full font-bold uppercase text-xs">Ditolak</span>
                                 @endif
                             </td>
                             
-                            @if($user->role === 'koor_kaprodi')
+                            @if($user->role === 'koordinator')
                             <td class="p-4 flex gap-2 justify-center items-center">
+                                @if($a->status_keputusan === 'divalidasi')
+                                    <span class="text-sm font-bold text-green-600">Disetujui Kaprodi</span>
+                                @else
                                 <form action="{{ route('asesmen.update_status', $a->id) }}" method="POST">
                                     @csrf @method('PATCH')
                                     <select name="status_keputusan" class="border border-gray-300 p-2 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm" onchange="this.form.submit()">
                                         <option value="pending" {{ $a->status_keputusan == 'pending' ? 'selected' : '' }}>⏳ Pending</option>
-                                        <option value="terpilih" {{ $a->status_keputusan == 'terpilih' ? 'selected' : '' }}>✅ Terpilih</option>
+                                        <option value="terpilih" {{ $a->status_keputusan == 'terpilih' ? 'selected' : '' }}>✅ Rekomendasikan</option>
                                         <option value="ditolak" {{ $a->status_keputusan == 'ditolak' ? 'selected' : '' }}>❌ Ditolak</option>
                                     </select>
                                 </form>
+                                @endif
                                 
                                 <form action="{{ route('asesmen.destroy', $a->id) }}" method="POST" onsubmit="return confirm('Hapus data pendaftar ini?');">
                                     @csrf @method('DELETE')
