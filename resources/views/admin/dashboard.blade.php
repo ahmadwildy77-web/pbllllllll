@@ -20,7 +20,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
                 </div>
-                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">1.284</h3>
+                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">{{ number_format($total_mahasiswa, 0, ',', '.') }}</h3>
                 <p class="text-xs text-gray-400 mt-auto">Mahasiswa aktif di sistem</p>
             </div>
 
@@ -32,7 +32,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                     </div>
                 </div>
-                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">42</h3>
+                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">{{ number_format($lomba_aktif, 0, ',', '.') }}</h3>
                 <p class="text-xs text-gray-400 mt-auto">Rekomendasi lomba tersedia</p>
             </div>
 
@@ -44,7 +44,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
                 </div>
-                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">186</h3>
+                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">{{ number_format($rekomendasi_hari_ini, 0, ',', '.') }}</h3>
                 <p class="text-xs text-gray-400 mt-auto">Rekomendasi diterbitkan</p>
             </div>
 
@@ -56,7 +56,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
                     </div>
                 </div>
-                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">12</h3>
+                <h3 class="text-3xl font-extrabold text-gray-900 mb-1">{{ number_format($prestasi_terbaru, 0, ',', '.') }}</h3>
                 <p class="text-xs text-gray-400 mt-auto">Prestasi mahasiswa tercatat</p>
             </div>
         </div>
@@ -78,15 +78,15 @@
                 <div class="flex space-x-4 mb-8">
                     <div class="bg-gray-50 rounded-xl p-3 flex-1">
                         <p class="text-[10px] text-gray-500 uppercase tracking-wide">Nasional</p>
-                        <p class="text-xl font-bold text-gray-900">18</p>
+                        <p class="text-xl font-bold text-gray-900">{{ number_format($lomba_nasional, 0, ',', '.') }}</p>
                     </div>
                     <div class="bg-gray-50 rounded-xl p-3 flex-1">
                         <p class="text-[10px] text-gray-500 uppercase tracking-wide">Internasional</p>
-                        <p class="text-xl font-bold text-gray-900">9</p>
+                        <p class="text-xl font-bold text-gray-900">{{ number_format($lomba_internasional, 0, ',', '.') }}</p>
                     </div>
                     <div class="bg-gray-50 rounded-xl p-3 flex-1">
                         <p class="text-[10px] text-gray-500 uppercase tracking-wide">Internal</p>
-                        <p class="text-xl font-bold text-gray-900">15</p>
+                        <p class="text-xl font-bold text-gray-900">{{ number_format($lomba_internal, 0, ',', '.') }}</p>
                     </div>
                 </div>
 
@@ -153,7 +153,7 @@
                     <div class="w-full h-full rounded-full border-[32px] border-[#0066cc] border-t-[#82c9ff] border-r-[#5ac8fa]"></div>
                     <div class="absolute inset-0 flex flex-col items-center justify-center">
                         <span class="text-[10px] text-gray-400">Total rekomendasi</span>
-                        <span class="text-2xl font-extrabold text-gray-900">1.284</span>
+                        <span class="text-2xl font-extrabold text-gray-900">{{ number_format($total_rekomendasi, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
@@ -165,21 +165,21 @@
                             <span class="w-3 h-3 rounded bg-[#0066cc] mr-3"></span>
                             Rekomendasi diterima
                         </div>
-                        <span class="font-bold text-gray-900">72%</span>
+                        <span class="font-bold text-gray-900">{{ $rekomendasi_diterima }}%</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center text-sm font-medium text-gray-600">
                             <span class="w-3 h-3 rounded bg-[#5ac8fa] mr-3"></span>
-                            Rekomendasi dibuka
+                            Rekomendasi pending
                         </div>
-                        <span class="font-bold text-gray-900">18%</span>
+                        <span class="font-bold text-gray-900">{{ $rekomendasi_pending }}%</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center text-sm font-medium text-gray-600">
                             <span class="w-3 h-3 rounded bg-[#bde0fe] mr-3"></span>
                             Rekomendasi diabaikan
                         </div>
-                        <span class="font-bold text-gray-900">10%</span>
+                        <span class="font-bold text-gray-900">{{ $rekomendasi_diabaikan }}%</span>
                     </div>
                 </div>
                 

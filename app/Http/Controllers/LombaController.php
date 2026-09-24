@@ -73,4 +73,20 @@ class LombaController extends Controller
 
         return redirect()->route('lomba.index')->with('success', 'Lomba berhasil ditambahkan.');
     }
+    public function destroy(Lomba $lomba)
+    {
+        $user = Auth::user();
+        if ($user->role !== 'koordinator') {
+            return redirect()->route('lomba.index')->with('error', 'Akses ditolak.');
+        }
+
+        // Jika ada cover image, mungkin mau dihapus file-nya juga:
+        if ($lomba->cover_image) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($lomba->cover_image);
+        }
+
+        $lomba->delete();
+
+        return redirect()->route('lomba.index')->with('success', 'Lomba berhasil dihapus.');
+    }
 }

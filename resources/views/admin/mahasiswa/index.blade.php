@@ -4,13 +4,6 @@
             <div>
                 <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Daftar Mahasiswa</h2>
                 <p class="text-sm text-gray-500">Kelola profil, rekomendasi, dan aktivitas mahasiswa</p>
-            </div>
-            <div>
-                <button class="bg-[#0066cc] text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-[#0055aa] transition flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    Tambah Mahasiswa
-                </button>
-            </div>
         </div>
     </x-slot>
 
@@ -50,6 +43,7 @@
         <!-- Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach($mahasiswas as $mhs)
+            <a href="{{ route('mahasiswa.show', $mhs->id) }}" class="block">
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition">
                 <div class="relative h-24 bg-gradient-to-r from-blue-50 to-[#eaf0fc] flex items-end justify-center pb-0">
                     <!-- Photo -->
@@ -70,11 +64,12 @@
                             Semester {{ $mhs->semester_aktif ?? '?' }}
                         </span>
                         <span class="px-2 py-1 bg-gray-50 text-gray-600 text-[10px] font-bold rounded-md">
-                            Aktif
+                            {{ $mhs->status_akun ?? 'Aktif' }}
                         </span>
                     </div>
                 </div>
             </div>
+            </a>
             @endforeach
         </div>
 

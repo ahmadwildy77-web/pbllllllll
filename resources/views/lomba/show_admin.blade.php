@@ -13,7 +13,7 @@
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-gray-100" data-aos="fade-up">
             <div class="bg-gradient-to-r from-gray-800 to-gray-700 p-8 text-white flex justify-between items-center">
                 <div>
-                    <h2 class="text-3xl font-extrabold">Data Pendaftar</h2>
+                    <h2 class="text-3xl font-extrabold">Data Mahasiswa Terkait</h2>
                     <p class="mt-2 text-gray-300 text-lg">Lomba: <span class="font-bold text-white">{{ $lomba->nama_lomba }}</span></p>
                 </div>
                 <div class="hidden md:block">
@@ -65,7 +65,7 @@
                                 @elseif($a->status_keputusan == 'terpilih')
                                     <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-bold uppercase text-xs">Menunggu Validasi</span>
                                 @elseif($a->status_keputusan == 'divalidasi')
-                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full font-bold uppercase text-xs">Divalidasi</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full font-bold uppercase text-xs">Resmi Mengikuti</span>
                                 @else
                                     <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full font-bold uppercase text-xs">Ditolak</span>
                                 @endif
@@ -97,7 +97,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="p-8 text-center text-gray-500 italic">Belum ada mahasiswa yang mendaftar di lomba ini.</td>
+                            <td colspan="6" class="p-8 text-center text-gray-500 italic">Belum ada mahasiswa yang terkait dengan lomba ini.</td>
                         </tr>
                         @endforelse
                     </tbody>

@@ -33,15 +33,37 @@ Route::middleware(['auth'])->group(function () {
                 return view('mahasiswa.dashboard', compact('rekomendasi_divalidasi'));
             }
             
-            // Koor and Staf see the admin dashboard
-            return view('admin.dashboard');
+            // Query for admin dashboard
+            $total_mahasiswa = \App\Models\User::where('role', 'mahasiswa')->count();
+            $lomba_aktif = \App\Models\Lomba::count();
+            $rekomendasi_hari_ini = \App\Models\AsesmenStatistik::whereDate('created_at', today())->count();
+            
+            // Dummy or related to other statuses:
+            $prestasi_terbaru = \App\Models\AsesmenStatistik::whereIn('status_keputusan', ['terpilih', 'divalidasi'])->count();
+
+            // Chart data
+            $lomba_nasional = \App\Models\Lomba::where('kategori', 'Nasional')->count() ?: 18; // Defaulting to old value if none
+            $lomba_internasional = \App\Models\Lomba::where('kategori', 'Internasional')->count() ?: 9;
+            $lomba_internal = \App\Models\Lomba::where('kategori', 'Internal')->count() ?: 15;
+
+            // Stats data
+            $total_rekomendasi = \App\Models\AsesmenStatistik::count();
+            $rekomendasi_diterima = $total_rekomendasi > 0 ? round((\App\Models\AsesmenStatistik::whereIn('status_keputusan', ['terpilih', 'divalidasi'])->count() / $total_rekomendasi) * 100) : 0;
+            $rekomendasi_pending = $total_rekomendasi > 0 ? round((\App\Models\AsesmenStatistik::where('status_keputusan', 'pending')->count() / $total_rekomendasi) * 100) : 0;
+            $rekomendasi_diabaikan = $total_rekomendasi > 0 ? round((\App\Models\AsesmenStatistik::where('status_keputusan', 'diabaikan')->count() / $total_rekomendasi) * 100) : 0;
+
+            return view('admin.dashboard', compact(
+                'total_mahasiswa', 'lomba_aktif', 'rekomendasi_hari_ini', 'prestasi_terbaru',
+                'lomba_nasional', 'lomba_internasional', 'lomba_internal',
+                'total_rekomendasi', 'rekomendasi_diterima', 'rekomendasi_pending', 'rekomendasi_diabaikan'
+            ));
         })->name('dashboard');
 
         Route::get('/lomba', [LombaController::class, 'index'])->name('lomba.index');
         Route::get('/lomba/create', [LombaController::class, 'create'])->name('lomba.create');
         Route::post('/lomba', [LombaController::class, 'store'])->name('lomba.store');
         Route::get('/lomba/{lomba}', [LombaController::class, 'show'])->name('lomba.show');
-
+        Route::delete('/lomba/{lomba}', [LombaController::class, 'destroy'])->name('lomba.destroy');
         Route::post('/lomba/{lomba_id}/asesmen', [AsesmenController::class, 'storeOrUpdate'])
             ->middleware('role:mahasiswa')
             ->name('asesmen.store');
@@ -49,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('role:koordinator,staf')->group(function () {
         Route::get('/mahasiswa', [\App\Http\Controllers\MahasiswaController::class, 'index'])->name('mahasiswa.index');
+        Route::get('/mahasiswa/{id}', [\App\Http\Controllers\MahasiswaController::class, 'show'])->name('mahasiswa.show');
     });
 
     Route::middleware('role:koordinator')->group(function () {

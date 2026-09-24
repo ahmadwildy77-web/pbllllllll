@@ -29,4 +29,10 @@ class MahasiswaController extends Controller
         $mahasiswas = $query->paginate(12)->withQueryString();
         return view('admin.mahasiswa.index', compact('mahasiswas'));
     }
+
+    public function show($id)
+    {
+        $mahasiswa = \App\Models\User::where('role', 'mahasiswa')->findOrFail($id);
+        return view('admin.mahasiswa.show', compact('mahasiswa'));
+    }
 }

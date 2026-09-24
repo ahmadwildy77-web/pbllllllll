@@ -51,6 +51,14 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'status_akun' => 'Aktif',
                 'role' => 'staf',
+            ],
+            [
+                'nim_nip' => '19700101',
+                'name' => 'Bapak Kaprodi',
+                'email' => 'kaprodi@kampus.ac.id',
+                'password' => Hash::make('password'),
+                'status_akun' => 'Aktif',
+                'role' => 'kaprodi',
             ]
         ];
 

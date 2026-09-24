@@ -3,7 +3,7 @@
         <div class="flex items-center space-x-4">
             <div>
                 <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Dashboard Mahasiswa</h2>
-                <p class="text-sm text-gray-500">Lihat rekomendasi lomba yang telah disetujui untuk Anda</p>
+                <p class="text-sm text-gray-500">Lomba yang resmi Anda ikuti setelah divalidasi</p>
             </div>
         </div>
     </x-slot>
@@ -11,7 +11,7 @@
     <div class="space-y-6 max-w-7xl mx-auto">
         
         <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-4 px-2">Rekomendasi Lomba Saya</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-4 px-2">Lomba yang Resmi Saya Ikuti</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($rekomendasi_divalidasi as $rek)
@@ -39,8 +39,8 @@
                             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4 text-gray-400">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-900">Belum Ada Rekomendasi</h3>
-                            <p class="mt-2 text-gray-500">Saat ini belum ada lomba yang divalidasi dan direkomendasikan untuk Anda.</p>
+                            <h3 class="text-xl font-bold text-gray-900">Belum Mengikuti Lomba</h3>
+                            <p class="mt-2 text-gray-500">Saat ini belum ada lomba yang divalidasi untuk Anda ikuti.</p>
                         </div>
                     </div>
                 @endforelse
