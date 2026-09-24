@@ -46,10 +46,13 @@
             <!-- Top Section -->
             <div>
                 <!-- App Logo -->
-                <div class="h-16 flex items-center px-6 border-b border-gray-100">
+                <div class="h-20 flex items-center px-6 border-b border-gray-100">
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-gradient-to-tr from-[#0066cc] to-[#5ac8fa] rounded-lg flex items-center justify-center text-white font-bold shadow-sm">S</div>
-                        <span class="font-bold text-lg tracking-tight text-gray-900">SIREMA Universitas</span>
+                        <div class="w-10 h-10 bg-gradient-to-tr from-[#0066cc] to-[#5ac8fa] rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-sm">S</div>
+                        <div class="flex flex-col leading-tight">
+                            <span class="font-bold text-lg tracking-tight text-gray-900">SIREMA</span>
+                            <span class="text-xs text-gray-500 font-medium">Universitas</span>
+                        </div>
                     </div>
                 </div>
                 
