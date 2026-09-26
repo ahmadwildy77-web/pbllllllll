@@ -1,18 +1,17 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center space-x-4">
-            <a href="{{ route('lomba.index') }}" class="text-gray-500 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition" title="Kembali">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            </a>
-            <div>
-                <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Tambah Lomba</h2>
-                <p class="text-sm text-gray-500">Buat perlombaan baru dan masukkan detailnya.</p>
-            </div>
-        </div>
-    </x-slot>
-
     <div class="py-6">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full mx-auto">
+            
+            <div class="flex items-center space-x-4 mb-6">
+                <a href="{{ route('lomba.index') }}" class="text-gray-500 hover:text-blue-600 bg-white border border-gray-200 hover:bg-blue-50 p-2.5 rounded-full transition shadow-sm" title="Kembali">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </a>
+                <div>
+                    <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Tambah Lomba</h2>
+                    <p class="text-sm text-gray-500">Buat perlombaan baru dan masukkan detailnya.</p>
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm border border-gray-100 rounded-3xl p-8">
                 
                 @if ($errors->any())

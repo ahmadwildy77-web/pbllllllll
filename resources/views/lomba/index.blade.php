@@ -1,12 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div>
+    <div class="w-full space-y-6">
+        
+        <div class="mb-6">
             <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Daftar Lomba</h2>
             <p class="text-sm text-gray-500">Pilih dan daftarkan diri pada kompetisi yang sesuai dengan keahlian Anda</p>
         </div>
-    </x-slot>
-
-    <div class="space-y-6">
+        
         <div>
             <h3 class="text-xl font-medium text-gray-900 mb-4 px-2">Kompetisi Tersedia</h3>
             <p class="mt-1 text-gray-500 px-2 mb-6 text-sm">Pilih dan daftarkan diri pada kompetisi yang sesuai dengan keahlian Anda.</p>

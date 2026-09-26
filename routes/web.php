@@ -64,12 +64,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/lomba', [LombaController::class, 'store'])->name('lomba.store');
         Route::get('/lomba/{lomba}', [LombaController::class, 'show'])->name('lomba.show');
         Route::delete('/lomba/{lomba}', [LombaController::class, 'destroy'])->name('lomba.destroy');
+
+        Route::get('/bantuan', function () {
+            return view('bantuan');
+        })->name('bantuan');
         Route::post('/lomba/{lomba_id}/asesmen', [AsesmenController::class, 'storeOrUpdate'])
             ->middleware('role:mahasiswa')
             ->name('asesmen.store');
     });
 
-    Route::middleware('role:koordinator,staf')->group(function () {
+    Route::middleware('role:koordinator,staf,kaprodi')->group(function () {
         Route::get('/mahasiswa', [\App\Http\Controllers\MahasiswaController::class, 'index'])->name('mahasiswa.index');
         Route::get('/mahasiswa/{id}', [\App\Http\Controllers\MahasiswaController::class, 'show'])->name('mahasiswa.show');
     });
@@ -87,6 +91,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/notifications/read', function () {
+        Auth::user()->unreadNotifications->markAsRead();
+        return back();
+    })->name('notifications.readAll');
 });
 
 require __DIR__.'/auth.php';

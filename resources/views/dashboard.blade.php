@@ -1,12 +1,13 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-900 tracking-tight leading-tight">
-            {{ __('Dashboard Mahasiswa') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+    <div class="w-full space-y-8">
+        
+        <div class="mb-4">
+            <h2 class="font-semibold text-2xl text-gray-900 tracking-tight leading-tight">
+                {{ __('Dashboard Mahasiswa') }}
+            </h2>
+        </div>
+        
+        <div class="space-y-8">
             
             <!-- Welcome Banner -->
             <div class="bg-white/70 backdrop-blur-md overflow-hidden shadow-sm sm:rounded-3xl border border-white/40">

@@ -1,14 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center space-x-4">
+    <div class="w-full space-y-6">
+        
+        <div class="flex items-center space-x-4 mb-6">
             <div>
                 <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Dashboard Mahasiswa</h2>
                 <p class="text-sm text-gray-500">Lomba yang resmi Anda ikuti setelah divalidasi</p>
             </div>
         </div>
-    </x-slot>
-
-    <div class="space-y-6 max-w-7xl mx-auto">
         
         <div>
             <h3 class="text-xl font-bold text-gray-900 mb-4 px-2">Lomba yang Resmi Saya Ikuti</h3>

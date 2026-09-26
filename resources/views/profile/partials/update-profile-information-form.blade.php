@@ -47,6 +47,24 @@
             @endif
         </div>
 
+        @if($user->role === 'mahasiswa')
+            <div>
+                <x-input-label for="semester_aktif" :value="__('Semester Aktif')" />
+                <select id="semester_aktif" name="semester_aktif" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    @for($i = 1; $i <= 8; $i++)
+                        <option value="{{ $i }}" {{ old('semester_aktif', $user->semester_aktif) == $i ? 'selected' : '' }}>Semester {{ $i }}</option>
+                    @endfor
+                </select>
+                <x-input-error class="mt-2" :messages="$errors->get('semester_aktif')" />
+            </div>
+
+            <div>
+                <x-input-label for="gpa" :value="__('IPK (Indeks Prestasi Kumulatif)')" />
+                <x-text-input id="gpa" name="gpa" type="number" step="0.01" min="0" max="4" class="mt-1 block w-full" :value="old('gpa', $user->gpa)" />
+                <x-input-error class="mt-2" :messages="$errors->get('gpa')" />
+            </div>
+        @endif
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

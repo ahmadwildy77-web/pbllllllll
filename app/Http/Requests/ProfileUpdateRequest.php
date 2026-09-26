@@ -26,6 +26,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'semester_aktif' => ['nullable', 'integer', 'min:1', 'max:8'],
+            'gpa' => ['nullable', 'numeric', 'min:0', 'max:4'],
         ];
     }
 }

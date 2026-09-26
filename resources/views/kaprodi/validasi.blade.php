@@ -8,7 +8,8 @@
         </div>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto space-y-6">
+    <!-- Container full width -->
+    <div class="w-full space-y-6">
         @if(session('success'))
             <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-xl" role="alert">
                 {{ session('success') }}
@@ -29,7 +30,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($asesmens as $rek)
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-blue-50/50 transition-colors cursor-pointer" onclick="window.open('{{ route('mahasiswa.show', $rek->user->id) }}', '_blank')" title="Klik baris untuk melihat Profil Mahasiswa">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
@@ -38,7 +39,9 @@
                                             </div>
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-bold text-gray-900">{{ $rek->user->name }}</div>
+                                            <a href="{{ route('mahasiswa.show', $rek->user->id) }}" target="_blank" class="text-sm font-bold text-blue-600 hover:text-blue-800 transition hover:underline" title="Lihat Profil Lengkap">
+                                                {{ $rek->user->name }}
+                                            </a>
                                             <div class="text-xs text-gray-500">NIM: {{ $rek->user->nim_nip }}</div>
                                         </div>
                                     </div>
@@ -54,7 +57,7 @@
                                     {{ $rek->updated_at->format('d M Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                    <div class="flex items-center justify-center space-x-2">
+                                    <div class="flex items-center justify-center space-x-2 relative z-10" onclick="event.stopPropagation();">
                                         <form action="{{ route('kaprodi.validasi.update', $rek->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')

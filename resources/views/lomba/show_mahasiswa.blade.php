@@ -2,7 +2,7 @@
     @php
         $user = Auth::user();
         $skorMinat = $user->skor_minat_bakat ?? 0;
-        $skorMatkul = $user->skor_matkul ?? 0;
+        $skorMatkul = $skor_matkul_spesifik ?? $user->skor_matkul ?? 0;
         $persentase = ($skorMinat * 0.6) + ($skorMatkul * 0.4);
         
         if ($persentase >= 80) {
@@ -20,19 +20,17 @@
         }
     @endphp
 
-    <x-slot name="header">
-        <div class="flex items-center space-x-4">
-            <a href="{{ route('lomba.index') }}" class="text-gray-500 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition" title="Kembali">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+    <div class="py-8 w-full space-y-6">
+        
+        <div class="flex items-center gap-4 mb-8">
+            <a href="{{ route('lomba.index') }}" class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all shadow-sm group" title="Kembali">
+                <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </a>
             <div>
-                <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Detail Lomba</h2>
-                <p class="text-sm text-gray-500">Informasi lomba dan kecocokan profil Anda</p>
+                <h2 class="font-bold text-2xl text-slate-800 tracking-tight">Detail Lomba</h2>
+                <p class="text-sm text-slate-500 mt-1">Informasi lomba dan kecocokan profil Anda</p>
             </div>
         </div>
-    </x-slot>
-
-    <div class="py-8 max-w-7xl mx-auto space-y-6">
 
         <!-- Header Lomba -->
         <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
@@ -77,16 +75,16 @@
                             <span class="text-gray-900">{{ $skorMinat }}</span>
                         </div>
                         <div class="w-full bg-gray-100 rounded-full h-2.5">
-                            <div class="bg-[#5ac8fa] h-2.5 rounded-full" style="width: {{ min(100, $skorMinat) }}%"></div>
+                            <div class="bg-blue-400 h-2.5 rounded-full" style="width: {{ min(100, $skorMinat) }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between text-sm font-medium mb-2">
-                            <span class="text-gray-600">Rata-rata Nilai Matkul (40%)</span>
+                            <span class="text-gray-600">Rata-rata Nilai Matkul Terkait (40%)</span>
                             <span class="text-gray-900">{{ $skorMatkul }}</span>
                         </div>
                         <div class="w-full bg-gray-100 rounded-full h-2.5">
-                            <div class="bg-[#82c9ff] h-2.5 rounded-full" style="width: {{ min(100, $skorMatkul) }}%"></div>
+                            <div class="bg-blue-300 h-2.5 rounded-full" style="width: {{ min(100, $skorMatkul) }}%"></div>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center w-full">
+    <div class="w-full space-y-6">
+        
+        <div class="flex justify-between items-center w-full mb-6">
             <div>
                 <h2 class="font-bold text-2xl text-gray-900 tracking-tight">Daftar Mahasiswa</h2>
                 <p class="text-sm text-gray-500">Kelola profil, rekomendasi, dan aktivitas mahasiswa</p>
+            </div>
         </div>
-    </x-slot>
-
-    <div class="max-w-7xl mx-auto space-y-6">
         
         <!-- Filters -->
         <form method="GET" action="{{ route('mahasiswa.index') }}" class="flex flex-col sm:flex-row justify-between items-center gap-4">

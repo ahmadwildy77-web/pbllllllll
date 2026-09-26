@@ -8,7 +8,8 @@
         </div>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto space-y-6">
+    <!-- Container full width untuk menyelaraskan dengan layout app -->
+    <div class="w-full space-y-6">
         
         <div class="flex justify-between items-end mb-6">
             <div>

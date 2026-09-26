@@ -29,7 +29,28 @@ class LombaController extends Controller
             $asesmen = AsesmenStatistik::where('lomba_id', $lomba->id)
                                         ->where('user_id', $user->id)
                                         ->first();
-            return view('lomba.show_mahasiswa', compact('lomba', 'asesmen'));
+            
+            // Hitung nilai matkul spesifik
+            $related_matkul = json_decode($lomba->related_matkul, true) ?? [];
+            $skor_matkul_spesifik = 0;
+            
+            if (count($related_matkul) > 0) {
+                $nilai_akademik = \Illuminate\Support\Facades\DB::table('nilai_akademik')
+                    ->where('nim', $user->nim_nip)
+                    ->first();
+                    
+                if ($nilai_akademik) {
+                    $total = 0;
+                    foreach ($related_matkul as $matkul) {
+                        $total += $nilai_akademik->$matkul ?? 0;
+                    }
+                    $skor_matkul_spesifik = round($total / count($related_matkul));
+                }
+            } else {
+                $skor_matkul_spesifik = $user->skor_matkul;
+            }
+
+            return view('lomba.show_mahasiswa', compact('lomba', 'asesmen', 'skor_matkul_spesifik'));
         } 
         else {
             $asesmens = AsesmenStatistik::where('lomba_id', $lomba->id)->with('user')->get();
