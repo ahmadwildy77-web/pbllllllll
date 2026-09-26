@@ -12,9 +12,9 @@
 
         <!-- Email Address -->
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Email / NIM / NIP</label>
-            <input id="email" type="text" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
-                class="block w-full px-3 py-2.5 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors sm:text-sm" placeholder="nama@email.com atau NIM/NIP">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
+                class="block w-full px-3 py-2.5 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors sm:text-sm" placeholder="nama@email.com">
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
