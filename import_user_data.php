@@ -95,7 +95,8 @@ CREATE TABLE asesmen_non_akademik (
     bakat_porseni INT,
     skala_binggris_ipec INT,
     pengalaman_lomba INT,
-    minat_mempelajari INT
+    minat_mempelajari INT,
+    link_sertifikat VARCHAR(255) NULL
 );
 
 INSERT INTO asesmen_non_akademik VALUES 
